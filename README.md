@@ -155,7 +155,112 @@ _currentWord[0] = '\0 ' ;
 
 ## Design Pattern Catalog: Creational - Structural - Behavioral Patterns
 
-### Creational Pattern
+## Creational Pattern: Abstract Factory - Factory hod - Prototype - Singleton
 - Used to create different types: Maze game, create different mazes 
 - Singleton can ensure there's only one maze per game and that all game objectshave ready access to it—without resorting to global variables or functions
 - Singleton also makes it easy to extend or replace the maze without touching existing code
+
+## ABSTRACT FACTORY
+- clients depend only upon interfaces rather than the concrete classes required to instantiate objects
+- Clients call these operations to obtain widget instances, but clients aren't aware of the concrete classes they're using. Thus clients stay independent of the prevailing look and feel, clients only have to commit to an interface defined by an abstract class,not a particular concrete class
+- Use the Abstract Factorypattern when:
+  * a system should be independent of how its products are created, composed, and represented
+  * a system should be configured with one of multiple families of products
+  * a family of related product objects is designed to be used together, and you need to enforce this constraint
+  * you want to provide a class library of products, and you want to reveal just their interfaces, not their implementations
+- Consequences:
+1) It isolates concrete classes: encapsulation
+2) It makes exchanging product families easy
+3) Supporting new kinds of products is difficult: adding new concrete classes may require additional changes in the interface
+
+## Factory method
+
+![factory-method](/img/factory-method.jpg)
+
+![creator-product](/img/creator-product.jpg)
+- Define an interface for creating an object, but let subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses
+- To use me, just subclass me and implement my factory method
+- Factories handle the details of object creation
+- This pattern is usuaully the first and easiest pattern to implement
+- Factory Method makes a design more customizable and only a little more complicated
+- Other design patternsrequire new classes, whereas FactoryMethod only requires a new operation
+- its used when you dont anticipate the type of object it creates in the superclass
+- To create a drawing application, for example,we define the classes DrawingApplication and DrawingDocument
+- The Application class is responsible for managing Documents and will create them as required—when the user selects Open or New from a menu, for example
+- the Application class only knows **when** a new document should be created, not **what** kind of Document to create
+- Factory Method: creation through inheritance. Prototype: creation through delegation
+- Benefits: decouple - encapsulate
+- Benefits: decoupling the implementation of the product from its use
+- Benefits: avoid duplication - one place to perform maintinance
+- Benefits: clients depend only upon interfaces rather than the concrete classes required to instantiate objects
+- Drawback: require creating a new subclass justto change the class ofthe product
+- Drawback: limitation though: subclasses may return different types of products only if these products have a common base class or interface
+- Drawback: The factory method in the base class should have its return type declared as this interface
+- What’s the advantage of this? It looks like we are just pushing the problem off to another object?
+- The pizzs factory may have many clients, so the solution is by encapsulating the pizza creating in one class, we now have only one place to make modifications when the implementation changes.
+- Simple Factory VS Factory Method?
+- SimpleFactory doesn’t give you the flexibility of the Factory Method because there is no way to vary the products you’re creating.
+
+## Factory Method VS Abstract FactoryMethod
+
+![factory-vs-abstract](/img/factory-vs-abstract.jpg)
+
+![factory-vs-abstract2](/img/factory-vs-abstract2.jpg)
+- **Similarities:**
+  * decoupling applications from specific implementations
+  * Both create objects
+  * both encapsulate object creation to keep applications loosely coupled and less dependent on implementations
+- **Differences:**
+- **Factory Method:**
+  * create objects thru inheritance (is a " relationship): object creation is delegated to subclasses, which implement the factory method to create objects
+  * extend a class and provide an implementation for a factory method, which the factory method is used to create objects and lets the subclasses do their own creation
+  * Create interface for one product
+- **Abstract Factory Method:**
+  * create objects thru composition (parts that make up the whole - has a" relationship): object creation is implemented in methods exposed in the factory interface
+  * Does the same as pt2 but in a dif way. Provide abstract type for creating family of products, basically to group together a set of related products
+  * Create interface for entire families of products
+  * Concrete factories often implement a factory method to create their products. they are used purely to create products
+
+## BUILDER
+- Separate the construction of a complex object from its representation so that the same construction process can create different representations
+- Solution to open ended objects
+- Used for related products, and create different interfaces
+-Structure:
+
+![builder](/img/builder.PNG)
+
+- **Why no abstract classfor products?** because in many cases, concrete builders differ so greatly in their representation that there is little to gain from giving different products a common parent class, ands unlikely to have a common interface
+
+### Related Patterns
+- Abstract Factory is different from the Builder is that the Builder pattern focuseson constructing a complex object step by step
+- Abstract Factory's emphasis is on families of product objects
+- Builder returns the product as a final step, whreas the Abstract Factory pattern , the product gets returned immediately
+
+
+
+## Prototype
+- Used to copy objects, and useful to subtitue when new objects of smal variation are created
+- reduce new subclasses
+- Disadvantage: needing to add clone method to each subclass
+
+## SINGLETON
+- There should be only one file system and one window manager. A digital filter will have one A/D converter. An accounting system will be dedicated to serving one company
+-  A global variable makes an object accessible, but it doesn't keep you from instantiating multiple objects
+- Examples: we only need one of: thread pools, caches, dialog boxes, objects that handle preferences and registry settings, objects used for logging, and objects that act as device drivers to devices like printers and graphics cards
+
+![logging](/img/logging.PNG)
+- Example Logging (since using the pattern here doesnt affect program execution), but still singleton should be last option as u might need two log files in the future, so make log accessible everywhere instead and create static field
+- Example: obtain a handle to a service locator
+- Example: reading configuration file
+- if we were to instantiate more than one we’d run into all sorts of problems like incorrect program behavior, overuse of resources, or inconsistent results
+- The signleton pattern work like global vars, but the downside of the latter: if you assign an object to a global variable, then that object might be created when your application begins. Right? What if this object is resource intensive and your application never ends up using it? As you will see, with the Singleton Pattern, we can create our objects only when they are needed
+- Drawback: THe singleton pattern violates the SRP in that it does: provide one object - responsbile for whatever role its tasked for
+- Drawback: Hard to test: hidden coupling
+- Drawback: Hard to subclass; since contructor is private 
+- Only use singleton when: every class uses it exactly the same way - every application need one instance only - classes that do not store any state on it’s internal variables;
+- Alternative: seperate 'need of one' and 'need of singleton
+- Alternative: since singleton can be thread unsafe, create an interface and build default implementation. This will make the dependencies clearer
+
+## Structural Patterns
+- Concerned with how classes and objects are composed to form larger structures
+- 
