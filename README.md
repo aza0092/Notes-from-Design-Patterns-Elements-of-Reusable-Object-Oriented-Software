@@ -47,7 +47,8 @@
 - By hiding the implementations in Windowlmp classes, we avoid polluting the Window classes with window system dependencies, which keeps the Window class hierarchy comparatively small and stable
 - The intent behind Bridge isto allow separate class hierarchies to work together even as they evolve independently
 - Separating windowing functionality into Window and Windowlmp hierarchies lets us implement and specialize these interfaces independently
-
+- Benifits: Can develop two different interfaces for two different purposes
+- Benifits: work with various database servers
 ### User Operations
 - we don't want to associate a particular user operation with a particular user interface, because we may want multiple user interfaces to the same operation
 - We could define a subclass of Menultem for every user operation and then hard-code each subclass to carry out the request. But that's not really right
@@ -263,4 +264,25 @@ _currentWord[0] = '\0 ' ;
 
 ## Structural Patterns
 - Concerned with how classes and objects are composed to form larger structures
-- 
+
+## Facade
+- It doesnt encapsulate the system, it provides a simplified interface and exposes full functionality interfaces. 
+- The intent of the Adapter Pattern is to alter an interface so that it matches one a client is expecting.
+- The intent of the Facade Pattern is to provide a simplified interface to a subsystem.
+- Benifit: avoid tight coupling between clients and subsystems
+
+## Proxy Pattern
+- proxy pretends it’s the real object, but it’s really just communicating over the net to the real object.
+
+## Command Pattern
+
+![command](/img/command.PNG)
+- The Command Pattern allows you to decouple the requester of an action from the object that actually performs the action
+- all command objects implement the same interface, and two method called execute() and undo()
+- Invoker: stores command... Receiver: invokes the command action
+- How does the remote know the living room from the kitchen light? IT DOESNT
+- Benifit: helps with undo, define an order/queue for commands
+
+## Observer Pattern
+- Benifit: loosely coupled: the subjest doesn’t need to know the concrete class of the observer
+- Benefit: we dont need to modify the subject if an observer is added
