@@ -1,4 +1,4 @@
-# Notes-from-Design-Patterns-Elements-of-Reusable-Object-Oriented-Software
+# Design Patterns Elements of Reusable Object Oriented Software
 
 # Index
 
